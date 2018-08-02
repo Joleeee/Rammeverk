@@ -10,7 +10,7 @@ namespace Rammeverk
 {
 	public interface IListable
 	{
-
+		//Used by all so we can have them in one list
 	}
 
 	public interface IDrawable : IListable
@@ -21,5 +21,11 @@ namespace Rammeverk
 	public interface IUpdateable : IListable
 	{
 		void Update(GameScreen gameScreen, GameTime gameTime);
+	}
+
+	public interface IHittable : IListable
+	{
+		Rect HitBox { get; set; }
+		void Hit(GameScreen gameScreen, IHittable other);
 	}
 }

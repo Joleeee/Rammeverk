@@ -14,5 +14,12 @@ namespace Rammeverk
 		{
 			spriteBatch.Draw(texture, position.Location, null, Color.White, position.Rotation, position.Origin, position.Scale, SpriteEffects.None, 0);
 		}
+
+		public static bool Overlaps(this Rect a, Rect b)
+		{
+			if (a.Max.X < b.Min.Y || a.Max.Y < b.Min.Y) return false;
+			if (a.Min.X > b.Max.X || a.Min.Y > b.Max.Y) return false;
+			return true;
+		}
 	}
 }
