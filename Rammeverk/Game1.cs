@@ -11,6 +11,9 @@ namespace Rammeverk
 	{
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
+		GameScreen activeGameScreen = new TestScreen();
+
+		Vector2 realResolution = new Vector2(640, 360);
 
 		public Game1()
 		{
@@ -37,8 +40,9 @@ namespace Rammeverk
 		/// </summary>
 		protected override void LoadContent()
 		{
-			// Create a new SpriteBatch, which can be used to draw textures.
+			Loader.ContentManager = Content;
 			spriteBatch = new SpriteBatch(GraphicsDevice);
+			activeGameScreen.LoadContent();
 
 			// TODO: use this.Content to load your game content here
 		}
@@ -62,7 +66,7 @@ namespace Rammeverk
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
 				Exit();
 
-			// TODO: Add your update logic here
+			activeGameScreen.Update(gameTime);
 
 			base.Update(gameTime);
 		}
@@ -74,9 +78,10 @@ namespace Rammeverk
 		protected override void Draw(GameTime gameTime)
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
-
-			// TODO: Add your drawing code here
-
+			Vector2 resolution = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+			spriteBatch.Begin(transformMatrix: Matrix.CreateScale(resolution.X / realResolution.X, resolution.Y / realResolution.Y, 1));
+			activeGameScreen.Draw(spriteBatch);
+			spriteBatch.End();
 			base.Draw(gameTime);
 		}
 	}
