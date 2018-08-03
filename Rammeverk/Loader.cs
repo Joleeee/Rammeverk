@@ -14,5 +14,13 @@ namespace Rammeverk
 		{
 			return ContentManager.Load<T>(assetName);
 		}
+
+		public static void LoadContent(ContentManager Content)
+		{
+			ContentManager = Content;
+		}
+
+		static string Particle = "particle";
+		static string Player = "player";
 	}
 }
