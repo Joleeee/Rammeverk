@@ -10,21 +10,9 @@ namespace Rammeverk
 {
 	public static class Extentions
 	{
-		public static void Draw(this SpriteBatch spriteBatch, Texture2D texture, Position position, Color? color = null)
+		public static void Draw(this SpriteBatch spriteBatch, TextureRect textureRect, Vector2 position, Vector2 scale, Color color, float rotation = 0, float depth = 0)
 		{
-			Color realColor = color == null ? Color.White : (Color)color;
-			spriteBatch.Draw(texture, position.Location, null, realColor, position.Rotation, texture.Bounds.Size.ToVector2()/2, position.Scale, SpriteEffects.None, 0);
-		}
-
-		public static void Draw(this SpriteBatch spriteBatch, TextureRect textureRect, Position position, Color? color = null)
-		{
-			Color realColor = color == null ? Color.White : (Color)color;
-			spriteBatch.Draw(textureRect.texture, position.Location, textureRect.currentRectangle, realColor, position.Rotation, textureRect.currentRectangle.Size.ToVector2() / 2, position.Scale, SpriteEffects.None, 0);
-		}
-
-		public static Vector2 GetCenter(this Texture2D texture)
-		{
-			return texture.Bounds.Size.ToVector2() / 2;
+			spriteBatch.Draw(textureRect.texture, position, textureRect.currentRectangle, color, rotation, textureRect.currentRectangle.Size.ToVector2() / 2, scale, SpriteEffects.None, depth);
 		}
 
 		public static bool Overlaps(this Rect a, Rect b)

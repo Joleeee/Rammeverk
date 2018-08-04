@@ -15,7 +15,7 @@ namespace Rammeverk
 			base.LoadContent();
 			//Add(new Sprite(Loader.Load<Texture2D>("test"), new Position(new Vector2(70, 20), 0, null)));
 			//Add(new Sprite(Loader.Load<Texture2D>("test"), new Position(new Vector2(90, 20), 0, null)));
-			Add(new Player(new Position(new Vector2(20, 20))));
+			Add(new Player(new Vector2(20, 20)));
 		}
 
 		public override void Update(GameTime gameTime)

@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 
 namespace Rammeverk
 {
-	public struct Rect
+	public class Rect
 	{
-		public Position position;
+		public Vector2 position;
 		public Vector2 size;
 		public Vector2 offset;
-		public Rect(Position position, Vector2 size, Vector2? offset)
+		public Rect(Vector2 position, Vector2 size, Vector2? offset)
 		{
 			this.position = position;
 			this.size = size;
 			this.offset = offset == null ? new Vector2(0, 0) : (Vector2)offset;
 		}
 
-		public Rect(ref Position position, Vector2 size, Vector2? offset)
+		public Rect(ref Vector2 position, ref Vector2 size, Vector2? offset)
 		{
 			this.position = position;
 			this.size = size;
@@ -30,7 +30,7 @@ namespace Rammeverk
 		{
 			get
 			{
-				return position.Location - offset;
+				return position - offset;
 			}
 		}
 
@@ -38,7 +38,7 @@ namespace Rammeverk
 		{
 			get
 			{
-				return position.Location - offset + size;
+				return position - offset + size;
 			}
 		}
 	}

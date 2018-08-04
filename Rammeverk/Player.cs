@@ -13,7 +13,11 @@ namespace Rammeverk
 	{
 		Vector2 velocity;
 		float speed = 24;
-		public Player(Position position) : base(new TextureRect(Loader.Load<Texture2D>("person"), Point.Zero, new Point(17, 24), 2, 0), position)
+		public Player(Vector2 position) : base(
+			new TextureRect(Loader.Load<Texture2D>("person"), Point.Zero, new Point(17, 24), 2, 0),
+			position,
+			Vector2.One,
+			0)
 		{
 			velocity = new Vector2(0, 0);
 		}
@@ -21,7 +25,7 @@ namespace Rammeverk
 		double timer;
 		public override void Update(GameScreen gameScreen, GameTime gameTime)
 		{
-			texture.current = (texture.current + 1) % 2;
+			textureRect.current = (textureRect.current + 1) % 2;
 			var kbs = Keyboard.GetState();
 			velocity *= 0.8f;
 			Vector2 move = velocity;
@@ -31,7 +35,7 @@ namespace Rammeverk
 			move.Y += kbs.IsKeyDown(Keys.Up) ? -speed : 0;
 			move = Vector2.Clamp(move, new Vector2(-speed), new Vector2(speed));
 			velocity = move;
-			position.Location += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+			position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
 			
 			
@@ -44,11 +48,16 @@ namespace Rammeverk
 				timer += gameTime.ElapsedGameTime.TotalSeconds;
 			}
 
-			if (timer > 0.5f)
+			if (timer > 0.5f) //although it will porbably never happend if the deltatime > 0.5f we will have bugs! and therefore we should use while instead of if
 			{
-				var p = position;
-				p.Location += new Vector2(-5, 12);
-				gameScreen.Add(new Particle(new TextureRect(Loader.Load<Texture2D>("dust")), p, gravity: new Vector2(0, 1), startVelocity: new Vector2(0, -2)));
+				position += new Vector2(-5, 12);
+				gameScreen.Add(new Particle(
+					new TextureRect(Loader.Load<Texture2D>("dust")),
+					position,
+					scale,
+					rotation,
+					gravity: new Vector2(0, 1),
+					startVelocity: new Vector2(0, -2)));
 				timer -= 0.5f;
 			}
 

@@ -10,28 +10,26 @@ namespace Rammeverk
 {
 	public class Sprite : IDrawable, IUpdateable, IHittable
 	{
-		public Position position;
-		public TextureRect texture;
+		public Vector2 position;
+		public Vector2 scale;
+		public float rotation;
+
+		public TextureRect textureRect;
 		public Color color;
-		public Sprite(TextureRect texture, Position position)
+		public Sprite(TextureRect textureRect, Vector2 position, Vector2 scale, float rotation)
 		{
-			this.texture = texture;
+			this.textureRect = textureRect;
 			this.position = position;
-			this.HitBox = new Rect(ref position, texture.texture.Bounds.Size.ToVector2(), texture.texture.GetCenter());
+			this.scale = scale;
+			this.rotation = rotation;
+			this.HitBox = new Rect(position, textureRect.size.ToVector2(), textureRect.size.ToVector2()/2);
 		}
 
-		public Sprite(ref TextureRect texture, ref Position position)
-		{
-			this.texture = texture;
-			this.position = position;
-			this.HitBox = new Rect(ref position, texture.texture.Bounds.Size.ToVector2(), texture.texture.GetCenter());
-		}
-
-		public virtual Rect HitBox { get; set; }
+		public Rect HitBox { get; set; } = new Rect(Vector2.Zero, Vector2.Zero, Vector2.Zero);
 
 		public virtual void Draw(SpriteBatch spriteBatch, GameScreen gameScreen)
 		{
-			spriteBatch.Draw(texture, position, color);
+			spriteBatch.Draw(textureRect, position, scale, color, rotation);
 		}
 
 		public virtual void Hit(GameScreen gameScreen, IHittable other)
@@ -41,7 +39,10 @@ namespace Rammeverk
 
 		public virtual void Update(GameScreen gameScreen, GameTime gameTime)
 		{
-
+			Rect hb = HitBox;
+			hb.position = position;
+			HitBox = hb;
+			HitBox.position = position;
 		}
 	}
 }
