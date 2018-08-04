@@ -13,10 +13,13 @@ namespace Rammeverk
 		public Texture2D texture;
 		public Rectangle[] frames;
 		public int current;
-		public TextureRect(Texture2D texture, Point start, Point size, int frames, int startFrame = 0)
+		public Rectangle currentRectangle { get { return frames[current]; } }
+		public TextureRect(Texture2D texture, Point? start = null, Point? size = null, int frames = 1, int startFrame = 0)
 		{
 			this.texture = texture;
-			this.frames = MakeFrames(start, size, frames);
+			Point _start = start == null ? new Point(0, 0) : (Point)start;
+			Point _size = size == null ? new Point(0, 0) : (Point)size;
+			this.frames = MakeFrames(_start, _size, frames);
 			this.current = startFrame;
 		}
 

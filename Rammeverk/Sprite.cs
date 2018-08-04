@@ -8,36 +8,40 @@ using System.Threading.Tasks;
 
 namespace Rammeverk
 {
-	class Sprite : IDrawable, IUpdateable, IHittable
+	public class Sprite : IDrawable, IUpdateable, IHittable
 	{
-		Position position;
-		Texture2D texture;
-		public Sprite(Texture2D texture, Position position)
+		public Position position;
+		public TextureRect texture;
+		public Color color;
+		public Sprite(TextureRect texture, Position position)
 		{
 			this.texture = texture;
 			this.position = position;
-			this.HitBox = new Rect(ref position, texture.Bounds.Size.ToVector2());
+			this.HitBox = new Rect(ref position, texture.texture.Bounds.Size.ToVector2(), texture.texture.GetCenter());
 		}
 
-		public Rect HitBox { get; set; }
-
-		//private Rect hitBox;
-		//public Rect HitBox { get { return hitBox; } set { hitBox = value; } }
-
-		public void Draw(SpriteBatch spriteBatch, GameScreen gameScreen)
+		public Sprite(ref TextureRect texture, ref Position position)
 		{
-			spriteBatch.Draw(texture, position);
+			this.texture = texture;
+			this.position = position;
+			this.HitBox = new Rect(ref position, texture.texture.Bounds.Size.ToVector2(), texture.texture.GetCenter());
 		}
 
-		public void Hit(GameScreen gameScreen, IHittable other)
+		public virtual Rect HitBox { get; set; }
+
+		public virtual void Draw(SpriteBatch spriteBatch, GameScreen gameScreen)
 		{
-			Console.WriteLine("{0} got hit by {1} at {2}", this, other, position.Location.X);
+			spriteBatch.Draw(texture, position, color);
 		}
 
-		public void Update(GameScreen gameScreen, GameTime gameTime)
+		public virtual void Hit(GameScreen gameScreen, IHittable other)
 		{
-			position.Location.X += 1;
-			Console.WriteLine(position.Location.X);
+			//Console.WriteLine("{0} got hit by {1} at {2}", this, other, position.Location.X);
+		}
+
+		public virtual void Update(GameScreen gameScreen, GameTime gameTime)
+		{
+
 		}
 	}
 }

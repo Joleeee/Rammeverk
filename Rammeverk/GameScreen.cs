@@ -11,12 +11,17 @@ namespace Rammeverk
 	public class GameScreen
 	{
 		public List<IListable> listables;
+		public List<IListable> add;
+		public List<IListable> rem;
 
-		public virtual void Add(IListable item) { listables.Add(item); }
+		public virtual void Add(IListable item) { add.Add(item); }
+		public virtual void Remove(IListable item) { rem.Add(item); }
 
 		public virtual void LoadContent()
 		{
 			listables = new List<IListable>();
+			add = new List<IListable>();
+			rem = new List<IListable>();
 		}
 
 		public virtual List<T> Get<T>()
@@ -26,6 +31,12 @@ namespace Rammeverk
 
 		public virtual void Update(GameTime gameTime)
 		{
+			//Apply Add and Remove functions, reason that we wait is because if you modify a list while its being used ex. foreach loop it throws and exception
+			listables.AddRange(add);
+			listables.RemoveAll(x => rem.Contains(x));
+			add.Clear();
+			rem.Clear();
+
 			List<IUpdateable> updateables = Get<IUpdateable>();
 			foreach (var updateable in updateables)
 			{
