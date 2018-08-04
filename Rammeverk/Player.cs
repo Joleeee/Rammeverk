@@ -12,7 +12,7 @@ namespace Rammeverk
 	class Player : Sprite
 	{
 		Vector2 velocity;
-		float speed = 24;
+		float speed = 6;
 		public Player(Vector2 position) : base(
 			new TextureRect(Loader.Load<Texture2D>("person"), Point.Zero, new Point(17, 24), 3, 0),
 			position,
@@ -37,8 +37,7 @@ namespace Rammeverk
 			if (kbs.IsKeyDown(Keys.Up))
 				velocity.Y -= speed;
 			if (kbs.IsKeyDown(Keys.Right) || kbs.IsKeyDown(Keys.Left) || kbs.IsKeyDown(Keys.Down) || kbs.IsKeyDown(Keys.Up))
-				textureRect.current = 1 + (int)(gameTime.TotalGameTime.TotalSeconds * 8 % textureRect.frames.Length); //8 is fps
-			textureRect.Animate(1/30f, 1, 2);
+				textureRect.Animate(1 / 30f, 1, 2);
 			position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
 			
