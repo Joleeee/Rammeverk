@@ -14,10 +14,11 @@ namespace Rammeverk
 		Vector2 velocity;
 		float speed = 24;
 		public Player(Vector2 position) : base(
-			new TextureRect(Loader.Load<Texture2D>("person"), Point.Zero, new Point(17, 24), 2, 0),
+			new TextureRect(Loader.Load<Texture2D>("person"), Point.Zero, new Point(17, 24), 3, 0),
 			position,
 			Vector2.One,
-			0)
+			0,
+			Color.White)
 		{
 			velocity = new Vector2(0, 0);
 		}
@@ -25,16 +26,19 @@ namespace Rammeverk
 		double timer;
 		public override void Update(GameScreen gameScreen, GameTime gameTime)
 		{
-			textureRect.current = (textureRect.current + 1) % 2;
 			var kbs = Keyboard.GetState();
 			velocity *= 0.8f;
-			Vector2 move = velocity;
-			move.X += kbs.IsKeyDown(Keys.Right) ? speed : 0;
-			move.X += kbs.IsKeyDown(Keys.Left) ? -speed : 0;
-			move.Y += kbs.IsKeyDown(Keys.Down) ? speed : 0;
-			move.Y += kbs.IsKeyDown(Keys.Up) ? -speed : 0;
-			move = Vector2.Clamp(move, new Vector2(-speed), new Vector2(speed));
-			velocity = move;
+			if (kbs.IsKeyDown(Keys.Right))
+				velocity.X += speed;
+			if (kbs.IsKeyDown(Keys.Left))
+				velocity.X -= speed;
+			if (kbs.IsKeyDown(Keys.Down))
+				velocity.Y += speed;
+			if (kbs.IsKeyDown(Keys.Up))
+				velocity.Y -= speed;
+			if (kbs.IsKeyDown(Keys.Right) || kbs.IsKeyDown(Keys.Left) || kbs.IsKeyDown(Keys.Down) || kbs.IsKeyDown(Keys.Up))
+				textureRect.current = 1 + (int)(gameTime.TotalGameTime.TotalSeconds * 8 % textureRect.frames.Length); //8 is fps
+			textureRect.Animate(1/30f, 1, 2);
 			position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
 			
@@ -50,10 +54,9 @@ namespace Rammeverk
 
 			if (timer > 0.5f) //although it will porbably never happend if the deltatime > 0.5f we will have bugs! and therefore we should use while instead of if
 			{
-				position += new Vector2(-5, 12);
 				gameScreen.Add(new Particle(
 					new TextureRect(Loader.Load<Texture2D>("dust")),
-					position,
+					position + new Vector2(-5, 12),
 					scale,
 					rotation,
 					gravity: new Vector2(0, 1),

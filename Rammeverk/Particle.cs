@@ -18,7 +18,7 @@ namespace Rammeverk
 		public Vector2Tween scaleTween = new Vector2Tween();
 
 		public Particle(TextureRect texture, Vector2 position, Vector2 scale, float rotation, float decayTime = 1f, Vector2? gravity = null, Vector2? startVelocity = null)
-			: base(texture, position, scale, rotation)
+			: base(texture, position, scale, rotation, Color.White)
 		{
 			this.decayTime = decayTime;
 			this.gravity = gravity == null ? new Vector2(0, 0) : (Vector2)gravity;

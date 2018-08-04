@@ -16,16 +16,25 @@ namespace Rammeverk
 
 		public TextureRect textureRect;
 		public Color color;
-		public Sprite(TextureRect textureRect, Vector2 position, Vector2 scale, float rotation)
+		public Sprite(TextureRect textureRect, Vector2 position, Vector2 scale, float rotation, Color color)
 		{
 			this.textureRect = textureRect;
 			this.position = position;
 			this.scale = scale;
 			this.rotation = rotation;
+			this.color = color;
 			this.HitBox = new Rect(position, textureRect.size.ToVector2(), textureRect.size.ToVector2()/2);
 		}
 
-		public Rect HitBox { get; set; } = new Rect(Vector2.Zero, Vector2.Zero, Vector2.Zero);
+		public virtual Rect HitBox { get; set; }
+
+		public virtual void Update(GameScreen gameScreen, GameTime gameTime)
+		{
+			Rect hb = HitBox;
+			hb.position = position;
+			HitBox = hb;
+			HitBox.position = position;
+		}
 
 		public virtual void Draw(SpriteBatch spriteBatch, GameScreen gameScreen)
 		{
@@ -35,14 +44,6 @@ namespace Rammeverk
 		public virtual void Hit(GameScreen gameScreen, IHittable other)
 		{
 			//Console.WriteLine("{0} got hit by {1} at {2}", this, other, position.Location.X);
-		}
-
-		public virtual void Update(GameScreen gameScreen, GameTime gameTime)
-		{
-			Rect hb = HitBox;
-			hb.position = position;
-			HitBox = hb;
-			HitBox.position = position;
 		}
 	}
 }
