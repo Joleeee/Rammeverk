@@ -20,7 +20,7 @@ namespace Rammeverk
 		{
 			this.texture = texture;
 			Point _start = start == null ? new Point(0, 0) : (Point)start;
-			Point _size = size == null ? new Point(0, 0) : (Point)size;
+			Point _size = size == null ? texture.Bounds.Size : (Point)size;
 			this.frames = MakeFrames(_start, _size, frames);
 			this.current = startFrame;
 			this.size = _size;
