@@ -46,6 +46,7 @@ namespace Rammeverk
 				updateable.Update(this, gameTime);
 			}
 
+			List<Action> toCall = new List<Action>();
 			List<IHittable> hittables = Get<IHittable>();
 			foreach (var hittable in hittables)
 			{
@@ -53,9 +54,14 @@ namespace Rammeverk
 				{
 					if (hittable != hittable2 && hittable.HitBox.Overlaps(hittable2.HitBox))
 					{
-						hittable.Hit(this, hittable2);
+						toCall.Add(() => hittable.Hit(this, hittable2));
 					}
 				}
+			}
+
+			foreach (var call in toCall)
+			{
+				call();
 			}
 		}
 
