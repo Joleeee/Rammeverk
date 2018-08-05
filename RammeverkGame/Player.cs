@@ -14,7 +14,7 @@ namespace Rammeverk
 		Vector2 velocity;
 		float speed = 6;
 		public Player(Vector2 position) : base(
-			new TextureRect(Loader.Load<Texture2D>("person"), Point.Zero, new Point(17, 24), 3, 0),
+			new TextureRect(Loader.Load<Texture2D>("person"), Point.Zero, new Point(9, 12), 3, 0),
 			position,
 			Vector2.One,
 			0,
