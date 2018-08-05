@@ -7,15 +7,17 @@ namespace Rammeverk
 	/// <summary>
 	/// This is the main type for your game.
 	/// </summary>
-	public class Game1 : Game
+	public class GameScreenBase : Game
 	{
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
-		GameScreen activeGameScreen = new TestScreen();
+
+		private GameScreen activeGameScreen;
+		public GameScreen ActiveGameScreen { get { return activeGameScreen; } set { activeGameScreen = value; activeGameScreen.LoadContent(); } }
 
 		Vector2 realResolution = new Vector2(128, 72);
 
-		public Game1()
+		public GameScreenBase()
 		{
 			graphics = new GraphicsDeviceManager(this);
 			graphics.PreferredBackBufferWidth = (int)realResolution.X * 6;
@@ -46,8 +48,8 @@ namespace Rammeverk
 		{
 			Loader.ContentManager = Content;
 			spriteBatch = new SpriteBatch(GraphicsDevice);
-			activeGameScreen.LoadContent();
-
+			if(activeGameScreen != null && activeGameScreen.loaded == false)
+				activeGameScreen.LoadContent();
 			// TODO: use this.Content to load your game content here
 		}
 
@@ -81,9 +83,6 @@ namespace Rammeverk
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime)
 		{
-			GraphicsDevice.Viewport = FullViewport();
-			GraphicsDevice.Clear(Color.Black);
-			GraphicsDevice.Viewport = VirutalViewport();
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 			Vector2 resolution = new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
 			spriteBatch.Begin(transformMatrix: Matrix.CreateScale(resolution.X / realResolution.X, resolution.Y / realResolution.Y, 1), samplerState: SamplerState.PointClamp);
@@ -91,30 +90,6 @@ namespace Rammeverk
 			spriteBatch.End();
 			base.Draw(gameTime);
 		}
-
-		Viewport FullViewport()
-		{
-			var vp = new Viewport();
-			vp.X = vp.Y = 0;
-			return vp;
-		}
-
-		Viewport VirutalViewport()
-		{
-			var targetRatio = realResolution.X / realResolution.Y;
-			var width = graphics.PreferredBackBufferWidth;
-			var height = (int)(width / targetRatio + 0.5f);
-			if (height > graphics.PreferredBackBufferHeight)
-			{
-				height = graphics.PreferredBackBufferHeight;
-				width = (int) (height * targetRatio + 0.5f);
-			}
-			var vp = new Viewport(
-				(graphics.PreferredBackBufferWidth / 2) - (width / 2),
-				(graphics.PreferredBackBufferHeight / 2) - (height / 2),
-				width,
-				height);
-			return vp;
-		}
+		
 	}
 }

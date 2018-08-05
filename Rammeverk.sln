@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rammeverk", "Rammeverk\Rammeverk.csproj", "{9C2B3312-CF16-4290-9624-75C3A49DE3D4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RammeverkGame", "RammeverkGame\RammeverkGame.csproj", "{4B6DBD9A-91F0-47F9-A5A7-F919B77C24DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -15,6 +17,10 @@ Global
 		{9C2B3312-CF16-4290-9624-75C3A49DE3D4}.Debug|x86.Build.0 = Debug|x86
 		{9C2B3312-CF16-4290-9624-75C3A49DE3D4}.Release|x86.ActiveCfg = Release|x86
 		{9C2B3312-CF16-4290-9624-75C3A49DE3D4}.Release|x86.Build.0 = Release|x86
+		{4B6DBD9A-91F0-47F9-A5A7-F919B77C24DA}.Debug|x86.ActiveCfg = Debug|x86
+		{4B6DBD9A-91F0-47F9-A5A7-F919B77C24DA}.Debug|x86.Build.0 = Debug|x86
+		{4B6DBD9A-91F0-47F9-A5A7-F919B77C24DA}.Release|x86.ActiveCfg = Release|x86
+		{4B6DBD9A-91F0-47F9-A5A7-F919B77C24DA}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

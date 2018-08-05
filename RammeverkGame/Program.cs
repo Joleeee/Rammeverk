@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Rammeverk
+namespace RammeverkGame
 {
 #if WINDOWS || LINUX
     /// <summary>
@@ -14,7 +14,7 @@ namespace Rammeverk
         [STAThread]
         static void Main()
         {
-            using (var game = new GameScreenBase())
+            using (var game = new Game1())
                 game.Run();
         }
     }

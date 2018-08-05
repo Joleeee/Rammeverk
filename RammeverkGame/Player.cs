@@ -24,6 +24,7 @@ namespace Rammeverk
 		}
 
 		double timer;
+		double walkingTime = 0;
 		public override void Update(GameScreen gameScreen, GameTime gameTime)
 		{
 			var kbs = Keyboard.GetState();
@@ -37,9 +38,19 @@ namespace Rammeverk
 			if (kbs.IsKeyDown(Keys.Up))
 				velocity.Y -= speed;
 			if (kbs.IsKeyDown(Keys.Right) || kbs.IsKeyDown(Keys.Left) || kbs.IsKeyDown(Keys.Down) || kbs.IsKeyDown(Keys.Up))
+			{
 				textureRect.Animate(1 / 30f, 1, 2);
+				walkingTime += gameTime.ElapsedGameTime.TotalSeconds;
+			}
+			else
+				textureRect.SetFrame(0, 0, 0);
 			position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+			var amount = 0.1f;
+			var hlfamount = amount / 2f;
+			scale.X = 1 + (amount * (float)Math.Cos((walkingTime * 6) % (Math.PI * 2))) - hlfamount;
+			scale.Y = 1 + (amount * (float)Math.Cos((Math.PI + walkingTime * 12) % (Math.PI * 2))) - hlfamount;
+			Console.WriteLine(scale.X);
 			
 			
 			var l = kbs.IsKeyDown(Keys.Left);

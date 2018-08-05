@@ -17,11 +17,14 @@ namespace Rammeverk
 		public virtual void Add(IListable item) { add.Add(item); }
 		public virtual void Remove(IListable item) { rem.Add(item); }
 
+		public bool loaded = false;
+
 		public virtual void LoadContent()
 		{
 			listables = new List<IListable>();
 			add = new List<IListable>();
 			rem = new List<IListable>();
+			loaded = true;
 		}
 
 		public virtual List<T> Get<T>()

@@ -6,11 +6,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9C2B3312-CF16-4290-9624-75C3A49DE3D4}</ProjectGuid>
+    <ProjectGuid>{4B6DBD9A-91F0-47F9-A5A7-F919B77C24DA}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rammeverk</RootNamespace>
-    <AssemblyName>Rammeverk</AssemblyName>
+    <RootNamespace>RammeverkGame</RootNamespace>
+    <AssemblyName>RammeverkGame</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -41,26 +41,17 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Extentions.cs" />
-    <Compile Include="GameScreenBase.cs" />
-    <Compile Include="GameScreen.cs" />
-    <Compile Include="Interfaces.cs" />
-    <Compile Include="Loader.cs" />
-    <Compile Include="Particle.cs" />
+    <Compile Include="Game1.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Randomizer.cs" />
-    <Compile Include="Rect.cs" />
-    <Compile Include="Sprite.cs" />
-    <Compile Include="TextureRect.cs" />
-    <Compile Include="TinyTween.cs" />
+    <Compile Include="TestScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -69,6 +60,12 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Rammeverk\Rammeverk.csproj">
+      <Project>{9c2b3312-cf16-4290-9624-75c3a49de3d4}</Project>
+      <Name>Rammeverk</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

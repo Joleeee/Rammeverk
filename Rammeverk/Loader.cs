@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Rammeverk
 {
-	class Loader
+	public class Loader
 	{
 		public static ContentManager ContentManager;
 		public static T Load<T>(string assetName)
@@ -19,8 +19,5 @@ namespace Rammeverk
 		{
 			ContentManager = Content;
 		}
-
-		static string Particle = "particle";
-		static string Player = "player";
 	}
 }
