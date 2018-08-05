@@ -12,25 +12,19 @@ namespace Rammeverk
 		public Vector2 position;
 		public Vector2 size;
 		public Vector2 offset;
-		public Rect(Vector2 position, Vector2 size, Vector2? offset)
+		private Vector2 centerOffset;
+		public Rect(Vector2 position, Vector2 size)
 		{
 			this.position = position;
 			this.size = size;
-			this.offset = offset == null ? new Vector2(0, 0) : (Vector2)offset;
-		}
-
-		public Rect(ref Vector2 position, ref Vector2 size, Vector2? offset)
-		{
-			this.position = position;
-			this.size = size;
-			this.offset = offset == null ? new Vector2(0, 0) : (Vector2)offset;
+			this.centerOffset = size/2;
 		}
 
 		public Vector2 Min
 		{
 			get
 			{
-				return position - offset;
+				return position - offset - centerOffset;
 			}
 		}
 
@@ -38,7 +32,7 @@ namespace Rammeverk
 		{
 			get
 			{
-				return position - offset + size;
+				return position - offset - centerOffset + size;
 			}
 		}
 	}

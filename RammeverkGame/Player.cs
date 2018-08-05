@@ -46,11 +46,12 @@ namespace Rammeverk
 				textureRect.SetFrame(0, 0, 0);
 			position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+			var scaleSpeed = 8;
 			var amount = 0.1f;
-			var hlfamount = amount / 2f;
-			scale.X = 1 + (amount * (float)Math.Cos((walkingTime * 6) % (Math.PI * 2))) - hlfamount;
-			scale.Y = 1 + (amount * (float)Math.Cos((Math.PI + walkingTime * 12) % (Math.PI * 2))) - hlfamount;
-			Console.WriteLine(scale.X);
+			scale.X = 1 + 0.5f * (2 * amount * (float)Math.Cos((walkingTime * scaleSpeed) % (Math.PI * 2)));
+			scale.Y = 1 +        (1 * amount * (float)Math.Sin((walkingTime * scaleSpeed) % (Math.PI * 2)));
+			offset.Y = (1 - scale.Y) * textureRect.size.Y * 0.5f;
+			Console.WriteLine(scale.Y - 1);
 			
 			
 			var l = kbs.IsKeyDown(Keys.Left);

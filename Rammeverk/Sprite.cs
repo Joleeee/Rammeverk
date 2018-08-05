@@ -13,6 +13,7 @@ namespace Rammeverk
 		public Vector2 position;
 		public Vector2 scale;
 		public float rotation;
+		public Vector2 offset;
 
 		public TextureRect textureRect;
 		public Color color;
@@ -23,22 +24,20 @@ namespace Rammeverk
 			this.scale = scale;
 			this.rotation = rotation;
 			this.color = color;
-			this.HitBox = new Rect(position, textureRect.size.ToVector2(), textureRect.size.ToVector2()/2);
+			this.HitBox = new Rect(position, textureRect.size.ToVector2());
 		}
 
 		public virtual Rect HitBox { get; set; }
 
 		public virtual void Update(GameScreen gameScreen, GameTime gameTime)
 		{
-			Rect hb = HitBox;
-			hb.position = position;
-			HitBox = hb;
 			HitBox.position = position;
+			HitBox.offset = offset;
 		}
 
 		public virtual void Draw(SpriteBatch spriteBatch, GameScreen gameScreen)
 		{
-			spriteBatch.Draw(textureRect, position, scale, color, rotation);
+			spriteBatch.Draw(textureRect, position + offset, scale, color, rotation);
 		}
 
 		public virtual void Hit(GameScreen gameScreen, IHittable other)
